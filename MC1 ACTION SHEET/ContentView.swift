@@ -8,9 +8,40 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showingOptions = false
+    @State private var selection = "None"
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            Text(selection)
+
+            Button("Show Options") {
+                showingOptions = true
+            }
+            .actionSheet(isPresented: $showingOptions) {
+                ActionSheet(
+                    title: Text("Add new notes file"),
+                    buttons: [
+                        .default(Text("Notes")) {
+                            selection = "Red"
+                        
+                        },
+
+                        .default(Text("Voice note")) {
+                            selection = "Green"
+                        },
+
+                        .default(Text("Take photo")) {
+                            selection = "Blue"
+                        },
+                        .default(Text("Import photo")) {
+                            selection = "Blue"
+                        },
+                        .cancel()
+                    ]
+                )
+            }
+        }
     }
 }
 
